@@ -10,12 +10,12 @@ const AvailableMeals = () => {
         <ul>
           {mealsData.map((meal) => (
             <MealItem
-                key={meal.id}
-                id={meal.id}
-                description={meal.description}
-                price={meal.price}
-                name={meal.name}
-              />
+              key={meal.id}
+              id={meal.id}
+              description={meal.description}
+              price={meal.price}
+              name={meal.name}
+            />
           ))}
         </ul>
       </Card>
