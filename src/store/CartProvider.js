@@ -29,7 +29,7 @@ const cartReducer = (prevCartState, action) => {
             amount: existingCartItem.amount+action.item.amount
         }
 
-        /* Add the cart state items to an updatedItems list. Then update the item with the new updated item object value. */
+        /* Add the cart state items to an updatedItems list. Then overwrite the updated Item with the updated Item values. */
 
         updatedItems = [...prevCartState.items];
         updatedItems[existingCartItemIndex] = updatedItem;
@@ -47,10 +47,45 @@ const cartReducer = (prevCartState, action) => {
     }
     /* In enither case, return the new state of the cart reducer with the updated Item values and total amount */
     return { items: updatedItems, totalAmount: updatedTotalAmount }; //Returns new cart state with updated items and updated total amount
+
+  }
+
+  if(action.type === 'REMOVE_ITEM')
+  {
+    
+    const existingCartItemIndex = prevCartState.items.findIndex((item)=>item.id===action.id);
+
+    const existingItem = prevCartState.items[existingCartItemIndex];
+
+    //Not using amount value to multiply. As the amount will always be one;
+
+    const updatedTotalAmount = prevCartState.totalAmount - (existingItem.price ); 
+
+    let updatedItems;
+
+    if(existingItem.amount==1)
+    {
+        updatedItems = prevCartState.items.filter((item)=>item.id !== action.id)
+
+    }
+
+    else {
+
+        const updatedItem = {...existingItem,amount: existingItem.amount-1};
+
+        updatedItems = [...prevCartState.items];
+
+        updatedItems[existingCartItemIndex] = updatedItem;
+
+    }
+
+    return {items: updatedItems, totalAmount: updatedTotalAmount};
+
   }
 
 
   return defaultCartState;
+
 };
 
 const CartProvider = (props) => {
