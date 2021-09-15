@@ -1,8 +1,13 @@
+.cart-item-layout {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  border-bottom: 2px solid #8a2b06;
+}
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #8a2b06;
   padding: 1rem 0;
   margin: 1rem 0;
 }
@@ -62,4 +67,8 @@
 .cart-item button:active {
   background-color: #8a2b06;
   color: white;
+}
+
+.cart-item-remove button {
+  width: auto;
 }
