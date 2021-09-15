@@ -1,24 +1,73 @@
-import mealsData from "../../objects/mealsData";
+import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
+import useHttp from "../../hooks/use-http";
 
 const AvailableMeals = () => {
+  const [mealsData, setMealsData] = useState([]);
+  const [isError, setIsError] = useState(false);
+
+  const { sendRequest } = useHttp();
+
+  const transformData = (responseData) => {
+
+    if(!responseData)
+    {
+      setIsError(true);
+    }
+
+    const fetchedData = [];
+
+    for (const key in responseData) {
+      fetchedData.push({
+        id: key,
+        name: responseData[key].name,
+        description: responseData[key].description,
+        price: responseData[key].price,
+      });
+    }
+    setMealsData(fetchedData);
+  };
+
+  useEffect(() => {
+    try {
+      sendRequest(
+        {
+          url: `https://react-food-ord-default-rtdb.firebaseio.com/meals.json`,
+        },
+        transformData
+      );
+    } catch (e) {
+      setIsError(true);
+    }
+  }, [sendRequest]);
+
+  let content = (
+    <React.Fragment>
+      <ul>
+        {mealsData.map((meal) => (
+          <MealItem
+            key={meal.id}
+            id={meal.id}
+            description={meal.description}
+            price={meal.price}
+            name={meal.name}
+          />
+        ))}
+      </ul>
+    </React.Fragment>
+  );
+
+  let errorContent = isError && (
+    <p className={classes.error}>
+      Could not fetch menu items at this time. Please try again later
+    </p>
+  );
+
   return (
     <section className={classes.meals}>
-      <Card>
-        <ul>
-          {mealsData.map((meal) => (
-            <MealItem
-              key={meal.id}
-              id={meal.id}
-              description={meal.description}
-              price={meal.price}
-              name={meal.name}
-            />
-          ))}
-        </ul>
-      </Card>
+      <Card>{isError ? errorContent : content}</Card>
     </section>
   );
 };
