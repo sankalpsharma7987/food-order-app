@@ -39,7 +39,7 @@ const AvailableMeals = () => {
     try {
       sendRequest(
         {
-          url: `https://react-food-ord-default-rtdb.firebaseio.com/meal.json`,
+          url: `https://react-food-ord-default-rtdb.firebaseio.com/meals.json`,
         },
         transformData
       );
