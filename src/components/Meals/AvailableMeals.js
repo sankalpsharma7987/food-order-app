@@ -6,40 +6,46 @@ import useHttp from "../../hooks/use-http";
 
 const AvailableMeals = () => {
   const [mealsData, setMealsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   const { sendRequest } = useHttp();
 
   const transformData = (responseData) => {
+    try {
+      if (!responseData) {
+        throw Error();
+      }
 
-    if(!responseData)
-    {
+      const fetchedData = [];
+
+      for (const key in responseData) {
+        fetchedData.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
+      }
+      setMealsData(fetchedData);
+      setIsLoading(false);
+    } catch (e) {
       setIsError(true);
+      setIsLoading(false);
     }
-
-    const fetchedData = [];
-
-    for (const key in responseData) {
-      fetchedData.push({
-        id: key,
-        name: responseData[key].name,
-        description: responseData[key].description,
-        price: responseData[key].price,
-      });
-    }
-    setMealsData(fetchedData);
   };
 
   useEffect(() => {
     try {
       sendRequest(
         {
-          url: `https://react-food-ord-default-rtdb.firebaseio.com/meals.json`,
+          url: `https://react-food-ord-default-rtdb.firebaseio.com/meal.json`,
         },
         transformData
       );
     } catch (e) {
       setIsError(true);
+      setIsLoading(false);
     }
   }, [sendRequest]);
 
@@ -59,6 +65,7 @@ const AvailableMeals = () => {
     </React.Fragment>
   );
 
+  let isLoadingContent = <p className={classes.loading}> Loading...</p>;
   let errorContent = isError && (
     <p className={classes.error}>
       Could not fetch menu items at this time. Please try again later
@@ -67,7 +74,10 @@ const AvailableMeals = () => {
 
   return (
     <section className={classes.meals}>
-      <Card>{isError ? errorContent : content}</Card>
+      <Card>
+        {isLoading && isLoadingContent}
+        {isError ? errorContent : content}
+      </Card>
     </section>
   );
 };
