@@ -6,7 +6,7 @@
   overflow: scroll;
 }
 
-.cart-items ::-webkit-scrollbar {
+.cart-items::-webkit-scrollbar {
   display: none;
 }
 

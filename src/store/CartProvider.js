@@ -112,12 +112,17 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REDUCE_ITEM", id: id });
   };
 
+  const resetCartHandler = () => {
+    dispatchCartAction({ type: "DEFAULT" });
+  };
+
   const cartContext = {
     items: cartState.items,
-    totalAmount: Math.round((cartState.totalAmount*100),2)/100,
+    totalAmount: Math.round(cartState.totalAmount * 100, 2) / 100,
     addItem: addCartItemHandler,
     removeItem: removeCartItemHandler,
     reduceItem: reduceCartItemHandler,
+    resetCart: resetCartHandler,
   };
 
   return (
