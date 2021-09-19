@@ -39,17 +39,21 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-
   const confirmHandler = async (userDataObj) => {
-    const bodyObj = JSON.stringify({user:userDataObj,order: cartCtx.items,totalAmount: cartCtx.totalAmount, totalItems: cartCtx.items.length})
+    const bodyObj = JSON.stringify({
+      user: userDataObj,
+      order: cartCtx.items,
+      totalAmount: cartCtx.totalAmount,
+      totalItems: cartCtx.items.length,
+    });
 
     setIsSubmitting(true);
     try {
-       await sendRequest({
+      await sendRequest({
         url: `https://react-food-ord-default-rtdb.firebaseio.com/orders.json`,
         method: "POST",
         body: bodyObj,
-        headers: {'Content-Type':'application/json'}
+        headers: { "Content-Type": "application/json" },
       });
       setIsSubmitting(false);
       setDidSubmit(true);
@@ -91,32 +95,37 @@ const Cart = (props) => {
     </div>
   );
 
-  const isSubmittingContent = <React.Fragment>
-    <p> Hang tight. We are processing your order!!</p>
-  </React.Fragment>
+  const isSubmittingContent = (
+    <React.Fragment>
+      <p> Hang tight. We are processing your order!!</p>
+    </React.Fragment>
+  );
 
-  const isErrorContent = <React.Fragment>
+  const isErrorContent = (
+    <React.Fragment>
+      <p>Could not process the order. Please reach out to customer support</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );
 
-    <p>Could not process the order. Please reach out to customer support</p>
-    <div className={classes.actions}>
-      <button className={classes.button} onClick={props.onClose}>
-        Close
-      </button>
-    </div>
-  </React.Fragment>
+  const didSubmitContent = (
+    <React.Fragment>
+      <p>Successfully submitted your order.</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );
 
-  const didSubmitContent = <React.Fragment>
-    <p>Successfully submitted your order.</p>
-    <div className={classes.actions}>
-      <button className={classes.button} onClick={props.onClose}>
-        Close
-      </button>
-    </div>
-  </React.Fragment>
-  
-
-  const cartModalContent = <React.Fragment>
-    {cartItems}
+  const cartModalContent = (
+    <React.Fragment>
+      {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
@@ -125,9 +134,8 @@ const Cart = (props) => {
         <Checkout onCancel={props.onClose} onConfirm={confirmHandler} />
       )}
       {!isCheckout && modalActions}
-  </React.Fragment>
-
-  
+    </React.Fragment>
+  );
 
   return (
     <Modal onModalClick={props.onClose}>
