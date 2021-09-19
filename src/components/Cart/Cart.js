@@ -19,7 +19,7 @@ const Cart = (props) => {
 
   const [isError, setIsError] = useState(false);
 
-  const [didSubmit, setDidSubmit] = useState(false);
+  const [orderDidSubmit, setDidSubmit] = useState(false);
 
   const { sendRequest } = useHttp();
 
@@ -131,10 +131,10 @@ const Cart = (props) => {
 
   return (
     <Modal onModalClick={props.onClose}>
-      {!isSubmitting && !didSubmit && !isError && cartModalContent}
+      {!isSubmitting && !orderDidSubmit && !isError && cartModalContent}
       {isSubmitting && isSubmittingContent}
-      {!isSubmitting && !didSubmit && isError && isErrorContent}
-      {!isSubmitting && didSubmit && didSubmitContent}
+      {!isSubmitting && !orderDidSubmit && isError && isErrorContent}
+      {!isSubmitting && orderDidSubmit && didSubmitContent}
     </Modal>
   );
 };
