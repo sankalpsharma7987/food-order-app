@@ -40,12 +40,12 @@ const Cart = (props) => {
   };
 
   const confirmHandler = async (userDataObj) => {
-    const bodyObj = JSON.stringify({
+    const bodyObj = {
       user: userDataObj,
       order: cartCtx.items,
       totalAmount: cartCtx.totalAmount,
       totalItems: cartCtx.items.length,
-    });
+    };
 
     setIsSubmitting(true);
     try {
