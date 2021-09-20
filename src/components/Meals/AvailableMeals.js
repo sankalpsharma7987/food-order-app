@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 import useHttp from "../../hooks/use-http";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AvailableMeals = () => {
   const [mealsData, setMealsData] = useState([]);
@@ -65,7 +66,12 @@ const AvailableMeals = () => {
     </React.Fragment>
   );
 
-  let isLoadingContent = <p className={classes.loading}> Loading...</p>;
+  let isLoadingContent = (
+    <div className={classes.loading}>
+      <p className={classes.loading}> Loading...</p>
+      <LoadingSpinner></LoadingSpinner>
+    </div>
+  );
   let errorContent = isError && (
     <p className={classes.error}>
       Could not fetch menu items at this time. Please try again later

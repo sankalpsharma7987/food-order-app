@@ -48,3 +48,10 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.submittingContent {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}

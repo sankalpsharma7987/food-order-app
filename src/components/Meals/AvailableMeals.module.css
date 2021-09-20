@@ -13,7 +13,10 @@
 
 .error,
 .loading {
-  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes meals-appear {

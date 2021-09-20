@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
 import Checkout from "./Checkout";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -98,9 +99,10 @@ const Cart = (props) => {
   );
 
   const isSubmittingContent = (
-    <React.Fragment>
+    <div className={classes.submittingContent}>
       <p> Hang tight. We are processing your order!!</p>
-    </React.Fragment>
+      <LoadingSpinner></LoadingSpinner>
+    </div>
   );
 
   const isErrorContent = (
