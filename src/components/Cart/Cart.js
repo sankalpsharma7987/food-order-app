@@ -49,8 +49,9 @@ const Cart = (props) => {
     };
 
     setIsSubmitting(true);
-    try {
+    
       setTimeout(async () => {
+        try {
         await sendRequest({
           url: `https://react-food-ord-default-rtdb.firebaseio.com/orders.json`,
           method: "POST",
@@ -61,12 +62,13 @@ const Cart = (props) => {
         setDidSubmit(true);
         cartCtx.resetCart();
         setIsCheckout(false);
+      }
+      catch (e) {
+        setIsSubmitting(false);
+        setDidSubmit(false);
+        setIsError(true);
+      }
       }, 1000);
-    } catch (e) {
-      setIsSubmitting(false);
-      setDidSubmit(false);
-      setIsError(true);
-    }
   };
 
   const cartItems = (
