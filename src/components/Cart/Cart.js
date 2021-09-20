@@ -55,15 +55,15 @@ const Cart = (props) => {
         body: bodyObj,
         headers: { "Content-Type": "application/json" },
       });
-      setIsSubmitting(false);
       setDidSubmit(true);
+      cartCtx.resetCart();
+      setIsCheckout(false);
     } catch (e) {
-      setIsSubmitting(false);
       setDidSubmit(false);
       setIsError(true);
+    } finally {
+      setIsSubmitting(false);
     }
-    cartCtx.resetCart();
-    setIsCheckout(false);
   };
 
   const cartItems = (

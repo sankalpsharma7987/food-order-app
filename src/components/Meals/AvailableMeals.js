@@ -28,9 +28,10 @@ const AvailableMeals = () => {
         });
       }
       setMealsData(fetchedData);
-      setIsLoading(false);
     } catch (e) {
       setIsError(true);
+    }
+    finally{
       setIsLoading(false);
     }
   };
