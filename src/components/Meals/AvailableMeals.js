@@ -27,12 +27,11 @@ const AvailableMeals = () => {
           price: responseData[key].price,
         });
       }
+      setIsLoading(false);
       setMealsData(fetchedData);
     } catch (e) {
-      setIsError(true);
-    }
-    finally{
       setIsLoading(false);
+      setIsError(true);
     }
   };
 
