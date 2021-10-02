@@ -1,7 +1,15 @@
 import { useReducer } from "react";
 import CartContext from "./cart-context";
 
-const defaultCartState = { items: [], totalAmount: 0 };
+let localStorageCartState = null;
+
+if (localStorage.getItem("cartState")) {
+  localStorageCartState = JSON.parse(localStorage.getItem("cartState"));
+}
+
+const initialCartState = { items: [], totalAmount: 0 };
+const defaultCartState =
+  localStorageCartState !== null ? localStorageCartState : initialCartState;
 
 const cartReducer = (cartState, action) => {
   if (action.type === "ADD_ITEM") {
@@ -35,11 +43,14 @@ const cartReducer = (cartState, action) => {
 
       updatedItems = cartState.items.concat(action.item);
     }
-    /* In enither case, return the new state of the cart reducer with the updated Item values and total amount */
-    return {
+    /* In either case, return the new state of the cart reducer with the updated Item values and total amount */
+    const newCartState = {
       items: updatedItems,
-      totalAmount: updatedTotalAmount,
-    }; //Returns new cart state with updated items and updated total amount
+      totalAmount: Math.round(updatedTotalAmount * 100, 2) / 100,
+    };
+
+    localStorage.setItem("cartState", JSON.stringify(newCartState));
+    return newCartState; //Returns new cart state with updated items and updated total amount
   }
 
   if (action.type === "REDUCE_ITEM") {
@@ -65,10 +76,13 @@ const cartReducer = (cartState, action) => {
       updatedItems[existingCartItemIndex] = updatedItem;
     }
 
-    return {
+    const newCartState = {
       items: updatedItems,
-      totalAmount: updatedTotalAmount,
+      totalAmount: Math.round(updatedTotalAmount * 100, 2) / 100,
     };
+
+    localStorage.setItem("cartState", JSON.stringify(newCartState));
+    return newCartState;
   }
 
   if (action.type === "REMOVE_ITEM") {
@@ -85,13 +99,19 @@ const cartReducer = (cartState, action) => {
       (item) => item.id !== action.id
     );
 
-    return {
+    const newCartState = {
       items: updatedItems,
-      totalAmount: updatedTotalAmount,
+      totalAmount: Math.round(updatedTotalAmount * 100, 2) / 100,
     };
+
+    localStorage.setItem("cartState", JSON.stringify(newCartState));
+    return newCartState;
   }
 
-  return defaultCartState;
+  if (action.type === "DEFAULT") {
+    localStorage.removeItem("cartState");
+    return initialCartState;
+  }
 };
 
 const CartProvider = (props) => {
@@ -118,7 +138,7 @@ const CartProvider = (props) => {
 
   const cartContext = {
     items: cartState.items,
-    totalAmount: Math.round(cartState.totalAmount * 100, 2) / 100,
+    totalAmount: cartState.totalAmount,
     addItem: addCartItemHandler,
     removeItem: removeCartItemHandler,
     reduceItem: reduceCartItemHandler,
