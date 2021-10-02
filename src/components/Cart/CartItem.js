@@ -1,9 +1,8 @@
 import classes from "./CartItem.module.css";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const CartItem = (props) => {
   const price = `$${props.price.toFixed(2)}`;
-
-  const cartItemRemoveClass = `${classes["cart-item"]} ${classes["cart-item-remove"]}`;
 
   return (
     <li className={classes["cart-item-layout"]}>
@@ -18,10 +17,10 @@ const CartItem = (props) => {
         <div className={classes.actions}>
           <button onClick={props.onReduce}>−</button>
           <button onClick={props.onAdd}>+</button>
+          <button onClick={props.onRemove}>
+            <DeleteIcon></DeleteIcon>
+          </button>
         </div>
-      </div>
-      <div className={cartItemRemoveClass}>
-        <button onClick={props.onRemove}>Remove</button>
       </div>
     </li>
   );
