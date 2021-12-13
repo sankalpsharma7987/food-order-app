@@ -69,3 +69,12 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.invalid {
+  border-color: #aa0b20;
+  background-color: #ffeff1;
+}
+
+.invalidMessage p {
+  color: #aa0b20;
+}
