@@ -15,9 +15,13 @@ const CartItem = (props) => {
           </div>
         </div>
         <div className={classes.actions}>
-          <button onClick={props.onReduce}>−</button>
-          <button onClick={props.onAdd}>+</button>
-          <button onClick={props.onRemove}>
+          <button onClick={props.onReduce} title="Decrease Quantity">
+            −
+          </button>
+          <button onClick={props.onAdd} title="Increase Quantity">
+            +
+          </button>
+          <button onClick={props.onRemove} title="Remove Item">
             <DeleteIcon></DeleteIcon>
           </button>
         </div>
