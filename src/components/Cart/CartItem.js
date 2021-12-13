@@ -9,6 +9,10 @@ const CartItem = (props) => {
     props.amount > 5 ? classes.invalid : ""
   }`;
 
+  const quantityValidation = props.amount > 5 && (
+    <p>Please enter a valid amount between (1-5) </p>
+  );
+
   return (
     <li className={classes["cart-item-layout"]}>
       <div className={classes["cart-item"]}>
@@ -31,9 +35,7 @@ const CartItem = (props) => {
           </button>
         </div>
       </div>
-      <div className={classes.invalidMessage}>
-        {props.amount > 5 && <p>Please enter a valid amount between (1-5) </p>}
-      </div>
+      <div className={classes.invalidMessage}>{quantityValidation}</div>
     </li>
   );
 };

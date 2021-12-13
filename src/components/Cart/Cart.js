@@ -12,9 +12,9 @@ const Cart = (props) => {
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
 
-  const hasItems = cartCtx.items.length > 0;
+  const isReadyToCheckout = cartCtx.isReadyToCheckout;
 
-  const [isCheckout, setIsCheckout] = useState(false);
+  const hasItems = cartCtx.items.length > 0;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -37,7 +37,7 @@ const Cart = (props) => {
   };
 
   const orderHandler = () => {
-    setIsCheckout(true);
+    cartCtx.validateItemQuantity();
   };
 
   const confirmHandler = async (userDataObj) => {
@@ -49,9 +49,9 @@ const Cart = (props) => {
     };
 
     setIsSubmitting(true);
-    
-      setTimeout(async () => {
-        try {
+
+    setTimeout(async () => {
+      try {
         await sendRequest({
           url: `https://react-food-ord-default-rtdb.firebaseio.com/orders.json`,
           method: "POST",
@@ -61,14 +61,12 @@ const Cart = (props) => {
         setIsSubmitting(false);
         setDidSubmit(true);
         cartCtx.resetCart();
-        setIsCheckout(false);
-      }
-      catch (e) {
+      } catch (e) {
         setIsSubmitting(false);
         setDidSubmit(false);
         setIsError(true);
       }
-      }, 1000);
+    }, 1000);
   };
 
   const cartItems = (
@@ -136,10 +134,10 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && hasItems && (
+      {isReadyToCheckout && hasItems && (
         <Checkout onCancel={props.onClose} onConfirm={confirmHandler} />
       )}
-      {!isCheckout && modalActions}
+      {!isReadyToCheckout && modalActions}
     </React.Fragment>
   );
 

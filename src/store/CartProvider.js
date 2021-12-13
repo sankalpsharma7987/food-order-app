@@ -7,7 +7,11 @@ if (localStorage.getItem("cartState")) {
   localStorageCartState = JSON.parse(localStorage.getItem("cartState"));
 }
 
-const initialCartState = { items: [], totalAmount: 0 };
+const initialCartState = {
+  items: [],
+  totalAmount: 0,
+  isReadyToCheckout: false,
+};
 const defaultCartState =
   localStorageCartState !== null ? localStorageCartState : initialCartState;
 
@@ -108,6 +112,14 @@ const cartReducer = (cartState, action) => {
     return newCartState;
   }
 
+  if (action.type === "VALIDATE_ITEM_QUANITY") {
+    const exceedingQuantityItem = cartState.items.find(
+      (item) => item.amount > 5
+    );
+    const isReadyToCheckout = exceedingQuantityItem ? false : true;
+    const newCartState = { ...cartState, isReadyToCheckout };
+    return newCartState;
+  }
   if (action.type === "DEFAULT") {
     localStorage.removeItem("cartState");
     return initialCartState;
@@ -132,6 +144,12 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REDUCE_ITEM", id: id });
   };
 
+  const validateItemQuantityHandler = () => {
+    dispatchCartAction({
+      type: "VALIDATE_ITEM_QUANITY",
+    });
+  };
+
   const resetCartHandler = () => {
     dispatchCartAction({ type: "DEFAULT" });
   };
@@ -139,10 +157,12 @@ const CartProvider = (props) => {
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
+    isReadyToCheckout: cartState.isReadyToCheckout,
     addItem: addCartItemHandler,
     removeItem: removeCartItemHandler,
     reduceItem: reduceCartItemHandler,
     resetCart: resetCartHandler,
+    validateItemQuantity: validateItemQuantityHandler,
   };
 
   return (
