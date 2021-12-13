@@ -18,7 +18,7 @@ const HeaderCartButton = (props) => {
   }`;
 
   useEffect(() => {
-    if (items.length === 0) {
+    if (numberOfCartItems === 0) {
       return;
     }
 
@@ -31,7 +31,7 @@ const HeaderCartButton = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [items]);
+  }, [numberOfCartItems]);
 
   return (
     <button className={btnClasses} onClick={props.onClick}>
