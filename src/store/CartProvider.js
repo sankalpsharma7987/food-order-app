@@ -51,6 +51,7 @@ const cartReducer = (cartState, action) => {
     const newCartState = {
       items: updatedItems,
       totalAmount: Math.round(updatedTotalAmount * 100, 2) / 100,
+      isReadyToCheckout: false,
     };
 
     localStorage.setItem("cartState", JSON.stringify(newCartState));
@@ -83,6 +84,7 @@ const cartReducer = (cartState, action) => {
     const newCartState = {
       items: updatedItems,
       totalAmount: Math.round(updatedTotalAmount * 100, 2) / 100,
+      isReadyToCheckout: false,
     };
 
     localStorage.setItem("cartState", JSON.stringify(newCartState));
@@ -106,6 +108,7 @@ const cartReducer = (cartState, action) => {
     const newCartState = {
       items: updatedItems,
       totalAmount: Math.round(updatedTotalAmount * 100, 2) / 100,
+      isReadyToCheckout: false,
     };
 
     localStorage.setItem("cartState", JSON.stringify(newCartState));

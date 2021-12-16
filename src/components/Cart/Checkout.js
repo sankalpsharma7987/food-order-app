@@ -48,7 +48,6 @@ const Checkout = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log();
 
     if (!formIsValid) {
       return;
