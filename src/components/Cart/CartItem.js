@@ -10,7 +10,7 @@ const CartItem = (props) => {
   }`;
 
   const quantityValidation = props.amount > 5 && (
-    <p>Please enter a valid amount between (1-5) </p>
+    <p>Item Quantity must be between (1-5) </p>
   );
 
   return (

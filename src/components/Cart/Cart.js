@@ -129,6 +129,12 @@ const Cart = (props) => {
 
   const cartModalContent = (
     <React.Fragment>
+      {hasItems && (
+        <div className={classes["cart-message"]}>
+          <p> Please add item quantity between 1-5 </p>
+        </div>
+      )}
+
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>

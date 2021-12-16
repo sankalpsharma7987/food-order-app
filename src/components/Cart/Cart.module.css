@@ -6,6 +6,10 @@
   overflow: auto;
 }
 
+.cart-message {
+  text-align: center;
+}
+
 .total {
   display: flex;
   justify-content: space-between;
