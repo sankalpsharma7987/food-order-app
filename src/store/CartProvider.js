@@ -121,8 +121,17 @@ const cartReducer = (cartState, action) => {
     );
     const isReadyToCheckout = exceedingQuantityItem ? false : true;
     const newCartState = { ...cartState, isReadyToCheckout };
+    localStorage.setItem("cartState", JSON.stringify(newCartState));
     return newCartState;
   }
+
+  if (action.type === "CHANGE_CART_STATUS") {
+    const isReadyToCheckout = action.value;
+    const newCartState = { ...cartState, isReadyToCheckout };
+    localStorage.setItem("cartState", JSON.stringify(newCartState));
+    return newCartState;
+  }
+
   if (action.type === "DEFAULT") {
     localStorage.removeItem("cartState");
     return initialCartState;
@@ -153,6 +162,13 @@ const CartProvider = (props) => {
     });
   };
 
+  const changeCheckoutHandler = (value) => {
+    dispatchCartAction({
+      type: "CHANGE_CART_STATUS",
+      value: value,
+    });
+  };
+
   const resetCartHandler = () => {
     dispatchCartAction({ type: "DEFAULT" });
   };
@@ -166,6 +182,7 @@ const CartProvider = (props) => {
     reduceItem: reduceCartItemHandler,
     resetCart: resetCartHandler,
     validateItemQuantity: validateItemQuantityHandler,
+    changeCheckoutState: changeCheckoutHandler,
   };
 
   return (
