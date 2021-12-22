@@ -9,6 +9,7 @@ const CartContext = React.createContext({
   reduceItem: (id) => {},
   resetCart: () => {},
   validateItemQuantity: () => {},
+  changeCheckoutState: (value) => {},
 });
 
 export default CartContext;
