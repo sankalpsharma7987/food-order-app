@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import classes from "./Modal.module.css";
+import CartContext from "../../store/cart-context";
 
 const BackDrop = (props) => {
   return (
@@ -13,8 +14,12 @@ const BackDrop = (props) => {
 };
 
 const ModalOverLay = (props) => {
+  const cartCtx = useContext(CartContext);
+  const modalClass = `${classes.modal} ${
+    cartCtx.items.length > 2 ? classes["modal-top"] : ""
+  }`;
   return (
-    <div className={classes.modal}>
+    <div className={modalClass}>
       <div>{props.children}</div>
     </div>
   );
