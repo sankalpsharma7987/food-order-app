@@ -50,6 +50,10 @@ const Checkout = (props) => {
     event.preventDefault();
 
     if (!formIsValid) {
+      nameInputBlurHandler();
+      streetInputBlurHandler();
+      postalInputBlurHandler();
+      cityInputBlurHandler();
       return;
     }
 
