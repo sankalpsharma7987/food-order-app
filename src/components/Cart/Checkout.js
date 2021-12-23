@@ -94,8 +94,8 @@ const Checkout = (props) => {
           onChange={nameInputChangeHandler}
           onBlur={nameInputBlurHandler}
         />
+        {nameInputIsInValid && <p>Invalid Name. Please enter valid name</p>}
       </div>
-      {nameInputIsInValid && <p>Invalid Name. Please enter valid name</p>}
 
       <div className={streetInputClass}>
         <label htmlFor="street">Street</label>
@@ -106,8 +106,10 @@ const Checkout = (props) => {
           onChange={streetInputChangeHandler}
           onBlur={streetInputBlurHandler}
         />
+        {streetInputIsInValid && (
+          <p>Invalid Street. Please enter valid street</p>
+        )}
       </div>
-      {streetInputIsInValid && <p>Invalid Street. Please enter valid street</p>}
 
       <div className={postalInputClass}>
         <label htmlFor="postal">Postal Code</label>
@@ -118,10 +120,10 @@ const Checkout = (props) => {
           onChange={postalInputChangeHandler}
           onBlur={postalInputBlurHandler}
         />
+        {postalInputIsInValid && (
+          <p>Invalid Postal Code. Please enter valid Postal Code</p>
+        )}
       </div>
-      {postalInputIsInValid && (
-        <p>Invalid Postal Code. Please enter valid Postal Code</p>
-      )}
 
       <div className={cityInputClass}>
         <label htmlFor="city">City</label>
@@ -132,8 +134,10 @@ const Checkout = (props) => {
           onChange={cityInputChangeHandler}
           onBlur={cityInputBlurHandler}
         />
+        {cityInputIsInValid && (
+          <p>Invalid City. Please enter valid city name</p>
+        )}
       </div>
-      {cityInputIsInValid && <p>Invalid City. Please enter valid city name</p>}
 
       <div className={classes.actions}>
         <button type="button" onClick={props.onCancel}>
