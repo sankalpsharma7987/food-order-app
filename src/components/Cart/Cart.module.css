@@ -6,6 +6,10 @@
   overflow: auto;
 }
 
+.cart-items-height {
+  max-height: 30vh;
+}
+
 .cart-message {
   text-align: center;
 }

@@ -69,8 +69,12 @@ const Cart = (props) => {
     }, 1000);
   };
 
+  const cartItemsClass = `${classes["cart-items"]} ${
+    cartCtx.isReadyToCheckout ? classes["cart-items-height"] : ""
+  }`;
+
   const cartItems = (
-    <ul className={classes["cart-items"]}>
+    <ul className={cartItemsClass}>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}

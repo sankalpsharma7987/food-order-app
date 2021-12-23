@@ -133,7 +133,7 @@ const Checkout = (props) => {
           onBlur={cityInputBlurHandler}
         />
       </div>
-      {cityInputIsInValid && <p>Invalid Name. Please enter valid city name</p>}
+      {cityInputIsInValid && <p>Invalid City. Please enter valid city name</p>}
 
       <div className={classes.actions}>
         <button type="button" onClick={props.onCancel}>
